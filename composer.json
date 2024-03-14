@@ -1,0 +1,32 @@
+{
+  "name": "msaddamkamal/model-dependency-sync",
+  "version": "0.1.0",
+  "description": "A Laravel package to sync model dependencies and provide insights on updates.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Muhammad Saddam",
+      "email": "saddy.devs@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.4|^8.0|^8.1",
+    "illuminate/support": "^8.0|^9.0|^10.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "MSaddamKamal\\ModelDependencySync\\": "src/"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "MSaddamKamal\\ModelDependencySync\\ModelDependencyManagerServiceProvider"
+      ]
+    }
+  }
+}
