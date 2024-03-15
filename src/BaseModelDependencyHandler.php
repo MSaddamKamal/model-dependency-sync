@@ -14,8 +14,12 @@ class BaseModelDependencyHandler
     public function handleModelUpdated(array $models, bool $isRecursiveCall = false): void
     {
         foreach ($models as $model) {
-            $dependencies = config('model_dependencies');
-
+            // Load the dynamic model dependencies configuration
+            $customConfigPath = app_path('model_dependencies.php');
+            $dependencies = [];
+            if (file_exists($customConfigPath)) {
+                $dependencies = require $customConfigPath;
+            }
             $modelClass = get_class($model);
 
             if (isset($dependencies[$modelClass])) {

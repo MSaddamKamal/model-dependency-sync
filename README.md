@@ -6,7 +6,7 @@ A Laravel package designed to sync model dependencies and provide insights on up
 
 - Automatically sync related model data on updates.
 - Provides insights into how model updates affect related data.
-- Easy configuration and customization through a published config file.
+- Easy configuration and customization through a published template file.
 
 ## Requirements
 
@@ -24,14 +24,19 @@ composer require msaddamkamal/model-dependency-sync
 
 This package uses Laravel's auto-discovery feature, so the service provider and facade will automatically be registered.
 
-## Publishing the Configuration
-To publish the package configuration file to your application's config directory, run:
-```bash
-php artisan vendor:publish --tag=model-dependency-sync-config
-```
+## Customizing Model Behavior
+This package allows you to define custom behavior for how your models' updates affect other parts of your application. To customize this behavior:
 
-## Configuration
-After publishing, the configuration file can be found at `config/model_dependencies.php`. Here, you can define how your models are related and what actions should be taken on updates.
+### Publish the Customization Template
+
+Run the following command to publish a template PHP file to your application's `app/` directory:
+
+```bash
+ php artisan vendor:publish --tag=model-dependency-sync
+```
+### Customize Your Model Dependencies
+
+After publishing, you'll find a new file `named model_dependencies.php` in your `app/` directory.Here, you can define how your models are related and what actions should be taken on updates.
 
 ```bash
 return [
@@ -55,6 +60,8 @@ return [
     ],
 ];
 ```
+This file allows you to specify which model attributes to "listen" for changes on, and define how those changes "affect" other models, including specifying custom actions to take using closures or other PHP logic.
+
 
 ## Extending Functionality with a Custom Handler
 
@@ -68,6 +75,12 @@ return [
     // Other configuration...
 ];
 
+```
+
+### Publishing the Configuration
+To publish the package configuration file to your application's config directory, run:
+```bash
+php artisan vendor:publish --tag=model-dependency-sync-config
 ```
 
 Here's an example of what a custom handler might look like:

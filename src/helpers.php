@@ -10,11 +10,16 @@ if (!function_exists('getModelUpdateEffects')) {
     {
 
         $modelSimpleName = basename(str_replace('\\', '/', $modelClass));
-        $config = config('model_dependencies');
+        $config = [];
+        // Dynamically load the custom model dependencies configuration
+        $customConfigPath = app_path('model_dependencies.php');
+        if (file_exists($customConfigPath)) {
+            $config = require $customConfigPath;
+        }
         $effectsDescriptions = [];
 
         if (!isset($config[$modelClass])) {
-            return ["No configuration found for {$modelClass}."];
+            return ["No configuration found for {$modelSimpleName}."];
         }
 
         $dependencies = $config[$modelClass];

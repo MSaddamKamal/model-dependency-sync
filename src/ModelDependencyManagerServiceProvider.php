@@ -24,12 +24,16 @@ class ModelDependencyManagerServiceProvider extends ServiceProvider
             __DIR__.'/../config/model_dependencies.php' => config_path('model_dependencies.php'),
         ], 'model-dependency-sync-config');
 
+        $this->publishes([
+            __DIR__.'/../resources/model_dependencies_template.php' => app_path('model_dependencies.php'),
+        ], 'model-dependency-sync');
+
 
         $handlerClass = config('model_dependencies.handler', BaseModelDependencyHandler::class);
         $handler = new $handlerClass();
 
         Event::listen('eloquent.updated: *', function ($event, $model) use ($handler) {
-            $handler->handleModelUpdated($model); // Ensure the argument is always an array
+            $handler->handleModelUpdated($model);
         });
     }
 }
