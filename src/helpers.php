@@ -1,7 +1,13 @@
 <?php
 
 if (!function_exists('getModelUpdateEffects')) {
-    function getModelUpdateEffects($modelClass) {
+    /**
+     * Generate the effects descriptions for updating a model field.
+     *
+     * @return array Array of effects descriptions for updating the model field.
+     */
+    function getModelUpdateEffects($modelClass): array
+    {
 
         $modelSimpleName = basename(str_replace('\\', '/', $modelClass));
         $config = config('model_dependencies');

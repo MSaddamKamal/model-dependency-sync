@@ -1,6 +1,6 @@
 {
   "name": "msaddamkamal/model-dependency-sync",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Laravel package to sync model dependencies and provide insights on updates.",
   "type": "library",
   "license": "MIT",

@@ -7,11 +7,17 @@ use Illuminate\Support\ServiceProvider;
 
 class ModelDependencyManagerServiceProvider extends ServiceProvider
 {
+    /**
+     * Register the model dependencies configuration.
+     */
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/model_dependencies.php', 'model_dependencies');
     }
 
+    /**
+     * Boot the application services.
+     */
     public function boot(): void
     {
         $this->publishes([
@@ -25,7 +31,5 @@ class ModelDependencyManagerServiceProvider extends ServiceProvider
         Event::listen('eloquent.updated: *', function ($event, $model) use ($handler) {
             $handler->handleModelUpdated($model); // Ensure the argument is always an array
         });
-
-        // Your existing event listener logic here
     }
 }

@@ -4,11 +4,18 @@ namespace MSaddamKamal\ModelDependencySync;
 
 class BaseModelDependencyHandler
 {
-    public function handleModelUpdated($models, $isRecursiveCall = false): void
+    /**
+     * Handle when models are updated.
+     *
+     * @param array $models The array of models to handle
+     * @param bool $isRecursiveCall Flag indicating if the call is recursive
+     * @return void
+     */
+    public function handleModelUpdated(array $models, bool $isRecursiveCall = false): void
     {
         foreach ($models as $model) {
             $dependencies = config('model_dependencies');
-            
+
             $modelClass = get_class($model);
 
             if (isset($dependencies[$modelClass])) {
@@ -26,7 +33,16 @@ class BaseModelDependencyHandler
         }
     }
 
-    protected function applyChanges($model, $affects, $listenColumn): void
+    /**
+     * Apply changes to the model based on affected models and actions.
+     *
+     * @param mixed $model The model to apply changes to
+     * @param array $affects Array of affected models and actions
+     * @param string $listenColumn The column to listen for changes
+     * @return void
+     * @throws \Exception
+     */
+    protected function applyChanges($model, array $affects, string $listenColumn): void
     {
         foreach ($affects as $affectedModelClass => $affectedDetails) {
             $relationName = $affectedDetails['relation'] ?? false;
